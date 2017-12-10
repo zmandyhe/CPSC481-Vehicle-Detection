@@ -134,8 +134,7 @@ This allows to remove false positives, which usually only appear on a very few f
 it is to take the image input from car collection, process through SSD network, then apply NMS algorithm and draw bounding boxes. The later part is similar with processing SSD and apply NMS for processing image.
 
 ## Author
-
-**Zhangying He** - is a graduate student of Computer Science at Cal State Fullerton. This project is to fullfil the CPSC 481 class project requirement. The project is inspired by the class project, and is an initial project for a longer term project that might lead to a graduate project of Driverless Car. Furtuer works will include:
+This project is to fullfil the CPSC 481 class project requirement. The project is inspired by the class project, and is an initial project for a longer term project that might lead to a graduate project of Driverless Car. Furtuer works will include:
 Implement video camera and/or sensors to detect objects
 Implement multiple object detections driving on the street, e.g. vehicles, people, obstcles, traffice signs, animals, etc
 Implement road lane detection
