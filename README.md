@@ -145,5 +145,5 @@ Online prediction
 Automate the whole input-training-detect-prediction-output process
 
 ## Acknowledgment
-This project is inspired and referred to the "SDC-Vehicle-Detection". To visit this algorithm: https://github.com/balancap/SDC-Vehicle-Detection.
+This project is inspired by and referred to the "SDC-Vehicle-Detection". To visit this algorithm: https://github.com/balancap/SDC-Vehicle-Detection.
 
