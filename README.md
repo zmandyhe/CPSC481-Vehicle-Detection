@@ -99,15 +99,17 @@ jupyter notebook
 
 Creating accurate deep learning models capable of localizing and identifying multiple objects or vehicle objects for this project purpose in a single image remains a core challenge in computer vision and machine learning fields.  During the project assignment 1 and assignment 2 processes for evluating varied models and approaches, I have certainly found there are external open source codebases to be useful for my project need. There are two main open source libraries I used in my developing pipeline for my project.
 
-### Google's Tensorflow common deep CNNs in TF-Slim Libraries. When downloaded the Tensorflow Object Detection API form github mentioned above, the TF-Slim libraries had been include under the foler of "~/tensorflow/models/research/slim". t contains source files on how to convert the original raw data into TFRecords files. The project re-uses the pre-trained model for KITT dataset, the "kitt.py" is to perform the convertion, the "kitti_commom.py" is to implement the interface. The RF-Slim libraries also contains other source files that can work on Pascal VOC dataset, and so on. To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
+#### Google's Tensorflow common deep CNNs in TF-Slim Libraries. 
+When downloaded the Tensorflow Object Detection API form github mentioned above, the TF-Slim libraries had been include under the foler of "~/tensorflow/models/research/slim". t contains source files on how to convert the original raw data into TFRecords files. The project re-uses the pre-trained model for KITT dataset, the "kitt.py" is to perform the convertion, the "kitti_commom.py" is to implement the interface. The RF-Slim libraries also contains other source files that can work on Pascal VOC dataset, and so on. To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
 
-### SSD Pre-Processing: The TF-Slim library also contains the implementation of the pre-processing before training or evaluation using the source file of "ssd_vgg_preprocessing.py". To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
+#### SSD Pre-Processing: 
+The TF-Slim library also contains the implementation of the pre-processing before training or evaluation using the source file of "ssd_vgg_preprocessing.py". To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
 
-### The pre-trained model of SSD Network: The TF-Slim under the same folder contains the SSD network implemented in this project pipeline used the the source file "ssd_vgg_300.py" which defines the 11 layers for the convelutional neural network model. To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
+#### The pre-trained model of SSD Network: 
+The TF-Slim under the same folder contains the SSD network implemented in this project pipeline used the the source file "ssd_vgg_300.py" which defines the 11 layers for the convelutional neural network model. To visit the TF-Slim: https://github.com/tensorflow/models/tree/master/research/slim
 
-### Post-processing/SDC-Vehicle-Detection: The SSD Network detected and draw one bounding box for each detected vehicle on every layers of convolutional neutral network, so it needs to impelment a post-processing process to average the bounding boxes tensor values to reduce the bounding boxed from multiple to one unique detection box and output to draw on the final image (or video). To implement this process, a reference and re-wirtten of the famous Non-Maximum Supression math model is used with a reference of an open source project "SDC-Vehicle-Detection" NMS algorithem. To visit this algorithm: https://github.com/balancap/SDC-Vehicle-Detection
-
-
+#### Post-processing/SDC-Vehicle-Detection: 
+The SSD Network detected and draw one bounding box for each detected vehicle on every layers of convolutional neutral network, so it needs to impelment a post-processing process to average the bounding boxes tensor values to reduce the bounding boxed from multiple to one unique detection box and output to draw on the final image (or video). To implement this process, a reference and re-wirtten of the famous Non-Maximum Supression math model is used with a reference of an open source project "SDC-Vehicle-Detection" NMS algorithem. To visit this algorithm: https://github.com/balancap/SDC-Vehicle-Detection
 
 ## Key Functions:
 
@@ -118,16 +120,18 @@ Process an image through SSD network, inputs include 1) img: Numpy array contain
 Bounding box: a float.32 format, which contains coordinates of [y_min, x_min, y_max, x_max] that floats in the range of [0.0, 1.0] relative to an underlining image’s height and width.
 tf.image.draw_bounding_boxes(images, boxes, name=None), it returns a Tensor
 
-### Feature Layer: defined in net/ssd_vgg_300.py (reuse):
+### Feature Layer: defined in net/ssd_vgg_300.py:
 The TensorFlow layers module provides a high-level API that makes it easy to construct a neural network. It provides methods that facilitate the creation of dense (fully connected) layers and convolutional layers, adding activation functions, and applying dropout regularization. TF-Slim library, ssd_vgg_300.py defines a SSDNet class to extract features and CNN layers.
 
-### Post-processing: Non-Maximum Supression Algorithm (re-use):
+### Post-processing: Non-Maximum Supression Algorithm:
 It firstly compute overlap score between bboxes1 and bboxes2 of their height and width, and return maximum value of them. After that it apply non-maximum selection to bounding boxes with score averaging: go over the list of boxes, and for each, see if boxes with lower score overlap. If yes, averaging their scores and coordinates, and consider it as a valid detection. It takes input of classes, scores and bboxes from SSD network output in the previous step, then return classes, scores and bboxes of objects detected after applying NMS. The bboxes will be used to draw on the image as an single output detection box.
 
-### Extract Car Collection Function: it first tries to match cars from the collection with new bounding boxes. For every match, the car coordinates and speed are updated accordingly. If there are remaining boxes at the end of the matching process, every one of them is considered as a new car. Finally, the algorithm also checks in how many of the last N frames the object has been detected.
+### Extract Car Collection Function: 
+it first tries to match cars from the collection with new bounding boxes. For every match, the car coordinates and speed are updated accordingly. If there are remaining boxes at the end of the matching process, every one of them is considered as a new car. Finally, the algorithm also checks in how many of the last N frames the object has been detected.
 This allows to remove false positives, which usually only appear on a very few frames. It output a list of car objects updated.
 
-### Video Process Frame function is to take the image input from car collection, process through SSD network, then apply NMS algorithm and draw bounding boxes. The later part is similar with processing SSD and apply NMS for processing image.
+### Video Process Frame function:
+it is to take the image input from car collection, process through SSD network, then apply NMS algorithm and draw bounding boxes. The later part is similar with processing SSD and apply NMS for processing image.
 
 ## Author
 
@@ -141,5 +145,5 @@ Online prediction
 Automate the whole input-training-detect-prediction-output process
 
 ## Acknowledgment
-Thanks for Dr. Wenlin Han for the inspiration of the Artificial Intelligence class from Cal State Fullerton, and the many algorithms introduced during the class.
+This project is inspired and referred to the "SDC-Vehicle-Detection". To visit this algorithm: https://github.com/balancap/SDC-Vehicle-Detection.
 
